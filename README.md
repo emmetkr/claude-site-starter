@@ -17,7 +17,7 @@ The setup I use for kartel.ai, as a starter kit. Plain HTML and CSS, no framewor
 
 1. Click **Use this template** at the top of the GitHub page. That gives you your own copy.
 2. Open GitHub Desktop, clone your copy, and open the folder in VS Code.
-3. Start Claude Code and say **hello**. Claude sees `SETUP.md`, asks you seven questions about your site, then builds the first page, installs the skills, saves your references, starts the memory and puts the site online at `https://<you>.github.io/<repo>/`.
+3. Start Claude Code and say **hello**. Claude sees `SETUP.md`, asks you eight questions about your site, then builds the first page, installs the skills, saves your references, starts the memory and puts the site online at `https://<you>.github.io/<repo>/`.
 
 From then on you describe changes and Claude makes them. Every chat starts by reading the devlog and the last two session notes, so nothing is forgotten between chats.
 
@@ -40,6 +40,9 @@ From then on you describe changes and Claude makes them. Every chat starts by re
 | `reference/` | Where the design systems and saved pages go. |
 | `sessions/` | One short note per chat: did, decided, next. The short-term memory. |
 | `SETUP.md` | The first-run interview. Claude follows it once, then deletes it. |
+| `docs/growth-stack.md` | The lead engine, optional: PostHog, RB2B, the demo form into your CRM, Calendly, Clay enrichment, Slack alerts, all behind consent. |
+| `public/demo/` | A book-a-demo page: form, thank-you state with a calendar slot, the consent banner. |
+| `public/consent.js` | Keeps every tracker off until the visitor accepts. |
 | `.claude/skills/setup` | The `/setup` command, same thing on demand. |
 
 ## What is left out, and where to get it

@@ -60,3 +60,21 @@ p{margin:0;max-width:60ch;text-wrap:pretty}
   .kit p{margin-bottom:12px}
   .btn{width:100%;justify-content:center}
 }
+
+/* Demo page */
+.demo{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,480px);gap:clamp(32px,5vw,80px);align-items:start}
+.form-card{display:grid;gap:16px;padding:28px;border:1px solid var(--hair);border-radius:16px;background:var(--bg)}
+.form-card form{display:grid;gap:16px}
+.form-card label{display:grid;gap:6px;font-size:15px;font-weight:500}
+.form-card input,.form-card textarea{font:inherit;font-size:16px;padding:12px 14px;border:1px solid var(--hair);border-radius:10px;background:var(--bg);color:var(--ink)}
+.form-card input:focus,.form-card textarea:focus{outline:2px solid var(--ink);outline-offset:1px;border-color:var(--ink)}
+.fine{font-size:14px;color:var(--soft)}
+@media(max-width:1023px){.demo{grid-template-columns:1fr}.form-card{padding:20px}}
+
+/* Consent banner: trackers stay off until Accept (public/consent.js) */
+.consent{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;justify-content:space-between;padding:14px var(--gutter);background:var(--ink);color:#fff;font-size:15px;line-height:22px}
+.consent p{margin:0;max-width:60ch}
+.consent div{display:flex;gap:10px}
+.consent .btn{min-height:40px;padding:0 16px;font-size:15px;background:#fff;color:var(--ink)}
+.consent .btn.ghost{background:none;color:#fff;border-color:rgba(255,255,255,.4)}
+@media(max-width:1023px){.consent .btn{width:auto}}

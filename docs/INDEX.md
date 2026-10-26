@@ -5,5 +5,6 @@
 - `design-rules.md` — layout, components and the phone rules.
 - `mobile-patterns.md` — the 390px measurements and the rail / tabs / sheet attributes.
 - `DEVLOG.md` — one dated line per change.
+- `growth-stack.md` — analytics, the demo flow and lead alerts, behind consent. Optional.
 
 See also `../sessions/` for per-chat notes and `../SETUP.md` (fresh copies only).

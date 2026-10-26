@@ -13,6 +13,7 @@ Ask these together, in plain words, and wait for the answers. Accept short answe
 5. An accent colour, if you have one. Otherwise the kit's red stays.
 6. Your GitHub username, and whether the repo is already on GitHub.
 7. Do you want a product demo video later? (yes or no)
+8. Do you want to capture leads from the site? (analytics, a book-a-demo page, alerts in Slack when someone visits or books)
 
 ## 2. Build the first page from the answers
 
@@ -77,6 +78,17 @@ If `gh` is not installed, tell them: on GitHub, open the repo → Settings → P
 
 If the repo is not on GitHub yet, tell them to install GitHub Desktop (https://desktop.github.com/), choose File → Add Local Repository, pick this folder, and click Publish repository. Then do the Pages step.
 
-## 8. Finish
+## 8. Analytics and leads (only if they said yes to question 8)
+
+Do this after the site is online, one tool at a time, and stop after each so they can create the account. Follow `docs/growth-stack.md`:
+
+1. Copy the consent banner from `public/demo/index.html` into every page, with `consent.js`. Nothing tracks until a visitor accepts.
+2. PostHog: ask for the snippet, paste it as a `data-consent` script, add the three events.
+3. The demo page: `public/demo/` is already there. Ask which CRM they use (HubSpot free is the default), wire the form, paste their Calendly embed into the thank-you state, link "Book a demo" from the nav.
+4. RB2B, Clay and Slack: offer them, explain what each adds in one sentence, set up the ones they want.
+
+Never write a key or ID into a file that is committed to a public repo.
+
+## 9. Finish
 
 Commit everything with a plain message ("First page for <name>"), delete this file, and tell them three things: the local address, the public address, and that from now on they just describe changes and Claude makes them.

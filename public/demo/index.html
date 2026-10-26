@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Book a demo</title>
+<meta name="description" content="Book a 30-minute walkthrough.">
+<link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/mobile.css">
+</head>
+<body>
+<nav class="nav" aria-label="Site"><div class="col"><b><a href="/" style="text-decoration:none">Your site name</a></b><div class="links"><a href="/#steps">How it works</a><a href="/demo/">Book a demo</a></div></div></nav>
+<main>
+  <section class="sec">
+    <div class="col demo">
+      <div>
+        <h1>Book a demo.</h1>
+        <p class="lede">Thirty minutes with a founder. Tell us what you are working on and we will show you the parts that fit.</p>
+      </div>
+      <div class="form-card">
+        <!-- Option A: your own form. Posts nothing until you wire it (docs/growth-stack.md, "The demo flow"). -->
+        <form id="demo-form" novalidate>
+          <label>Work email<input type="email" name="email" required autocomplete="email" placeholder="you@company.com"></label>
+          <label>Company<input type="text" name="company" required autocomplete="organization"></label>
+          <label>What do you want to see?<textarea name="about" rows="3"></textarea></label>
+          <button class="btn" type="submit">Request a time</button>
+          <p class="fine">We reply within one working day.</p>
+        </form>
+        <!-- Option B: paste a HubSpot or Typeform embed here instead of the form above. -->
+        <div id="demo-done" hidden>
+          <h3>Thanks. Pick a time.</h3>
+          <p class="muted">Paste your Calendly inline embed below this line, or the link to it.</p>
+          <!-- <div class="calendly-inline-widget" data-url="https://calendly.com/YOU/30min" style="min-width:320px;height:700px"></div>
+               <script type="text/plain" data-consent src="https://assets.calendly.com/assets/external/widget.js" async></script> -->
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+<footer class="foot"><div class="col"><span>Your site name</span><a href="/">Home</a></div></footer>
+
+<div id="consent-banner" class="consent" role="dialog" aria-label="Privacy choice" hidden>
+  <p>We use analytics to see which pages help. Nothing loads until you choose.</p>
+  <div><button class="btn ghost" type="button" data-decline>Decline</button><button class="btn" type="button" data-accept>Accept</button></div>
+</div>
+<script src="/consent.js"></script>
+<script src="/mobile.js" defer></script>
+<script>
+// Shows the thank-you state. Replace the body of send() with your form's real submit (docs/growth-stack.md).
+(function(){var f=document.getElementById('demo-form'),d=document.getElementById('demo-done');if(!f)return;
+function send(data){return Promise.resolve();}
+f.addEventListener('submit',function(e){e.preventDefault();if(!f.reportValidity())return;var data=Object.fromEntries(new FormData(f));
+send(data).then(function(){f.hidden=true;d.hidden=false;document.dispatchEvent(new CustomEvent('lead:submitted',{detail:data}));});});})();
+</script>
+</body>
+</html>

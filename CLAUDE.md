@@ -25,6 +25,7 @@ A static site: hand-written HTML and CSS in `public/`, no build step. GitHub Pag
 | Anything at phone width | `docs/mobile-patterns.md` |
 | What changed and why | `docs/DEVLOG.md`, then `sessions/` |
 | Reference sites | `reference/README.md` |
+| Analytics, the demo page, leads | `docs/growth-stack.md` |
 
 ## Docs and code change together
 
@@ -43,4 +44,4 @@ If you add, remove or rename a page, a section, a token or a script, update the 
 - One `site.css`. Tokens at the top, in `:root`.
 - Inter Variable is the only typeface. It is already in `public/assets/fonts/`.
 - Write copy to `docs/copy-rules.md`. Every heading is a full sentence or a plain noun phrase.
-- Do not add tracking, fonts from a CDN, or third-party scripts unless asked.
+- Do not add tracking, fonts from a CDN, or third-party scripts unless asked. Any tracker goes in as a `type="text/plain" data-consent` script behind the consent banner, never live by default.
