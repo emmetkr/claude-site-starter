@@ -30,7 +30,7 @@ p{margin:0;max-width:60ch;text-wrap:pretty}
 .muted{color:var(--muted)}
 
 /* Buttons */
-.btn{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font-weight:600;font-size:16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border:0;border-radius:999px;background:var(--ink);color:#fff;text-decoration:none;font:inherit;font-weight:600;font-size:16px;cursor:pointer}
 .btn.ghost{background:none;color:var(--ink);border:1px solid var(--ink)}
 .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
 
