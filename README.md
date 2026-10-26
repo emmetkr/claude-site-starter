@@ -10,7 +10,7 @@ The setup I use for kartel.ai, as a starter kit. Plain HTML and CSS, no framewor
 2. **Install the Claude Code extension** inside VS Code and sign in. https://claude.com/claude-code
 3. **Connect GitHub.** Install GitHub Desktop and sign in. Every change is saved there, and it is how the site goes live. https://desktop.github.com/
 4. **Add the skills.** In Claude Code, add `impeccable` (design review, catches the things that make a page look AI-generated): https://github.com/pbakaus/impeccable. The font is already in this kit: Inter Variable, in `public/assets/fonts/`.
-5. **Save three sites you like as reference.** In your browser, File → Save Page As (Web Page, Complete) into `reference/`. Ask Claude to read them before it designs anything. Details in `reference/README.md`.
+5. **Give Claude references.** Clone [awesome-design-systems](https://github.com/alexpate/awesome-design-systems) into `reference/`: a list of 140 public design systems with links to their docs and source. Save three sites you like there too (File → Save Page As, Web Page Complete). Ask Claude to study them before it designs anything. Details in `reference/README.md`.
 6. **Describe your site in plain English.** Open this folder in VS Code, start Claude Code, and say what the site is for and who reads it. Claude edits `public/index.html` and `public/site.css`. Open the page in your browser and ask for changes the way you would brief a designer.
 
 ## Use this kit
