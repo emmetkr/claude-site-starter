@@ -48,5 +48,6 @@ for (const [w, h, mobile] of [[390, 844, true], [1440, 900, false]]) {
   const width = sw.result?.value;
   console.log(`${w}px: shots/${w}.png, scrollWidth ${width}${width > w ? '  <-- SIDEWAYS SCROLL' : ''}`);
 }
-ws.close(); chrome.kill(); server.close();
-fs.rmSync(profile, {recursive: true, force: true});
+ws.close(); server.close();
+await new Promise(r => { chrome.on('exit', r); chrome.kill(); });
+try { fs.rmSync(profile, {recursive: true, force: true}); } catch {}
