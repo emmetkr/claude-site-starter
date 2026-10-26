@@ -2,6 +2,14 @@
 
 Read this before changing anything in this repo.
 
+## First run
+
+If `SETUP.md` exists in the project root, this copy of the kit has not been set up. Before anything else, follow `SETUP.md`: it is a short interview, then Claude builds the first page, installs the skills, starts the memory and puts the site online. The `/setup` command does the same.
+
+## Every session
+
+Start by reading `docs/DEVLOG.md` and the two newest notes in `sessions/`. End by writing a note in `sessions/` (see its README) and a line in `docs/DEVLOG.md`.
+
 ## What this is
 
 A static site: hand-written HTML and CSS in `public/`, no build step. GitHub Pages serves `public/` as the site.
@@ -15,7 +23,7 @@ A static site: hand-written HTML and CSS in `public/`, no build step. GitHub Pag
 | Copy | `docs/copy-rules.md` |
 | Layout and components | `docs/design-rules.md` |
 | Anything at phone width | `docs/mobile-patterns.md` |
-| What changed and why | `docs/DEVLOG.md` |
+| What changed and why | `docs/DEVLOG.md`, then `sessions/` |
 | Reference sites | `reference/README.md` |
 
 ## Docs and code change together
@@ -24,7 +32,6 @@ If you add, remove or rename a page, a section, a token or a script, update the 
 
 ## Before you say a change is done
 
-0. Add a line to `docs/DEVLOG.md`.
 
 1. Run `node scripts/check.mjs`.
 2. Run `node scripts/probe.mjs` and look at both screenshots. The page must work at 390px wide with no sideways scroll.

@@ -15,9 +15,11 @@ The setup I use for kartel.ai, as a starter kit. Plain HTML and CSS, no framewor
 
 ## Use this kit
 
-Click **Use this template** at the top of the GitHub page. That gives you your own copy. Then clone it in GitHub Desktop and open the folder in VS Code.
+1. Click **Use this template** at the top of the GitHub page. That gives you your own copy.
+2. Open GitHub Desktop, clone your copy, and open the folder in VS Code.
+3. Start Claude Code and say **hello**. Claude sees `SETUP.md`, asks you seven questions about your site, then builds the first page, installs the skills, saves your references, starts the memory and puts the site online at `https://<you>.github.io/<repo>/`.
 
-To put it online: in your repo's Settings → Pages, set Source to **GitHub Actions**. The workflow in `.github/workflows/pages.yml` publishes the `public/` folder on every push.
+From then on you describe changes and Claude makes them. Every chat starts by reading the devlog and the last two session notes, so nothing is forgotten between chats.
 
 ## What is in the kit
 
@@ -36,6 +38,9 @@ To put it online: in your repo's Settings → Pages, set Source to **GitHub Acti
 | `scripts/share-card.mjs` | Renders `public/share-card.html` to the image shown when your link is pasted into Slack or LinkedIn. |
 | `.impeccable/config.json` | The design detector's config, with nothing ignored. |
 | `reference/` | Where the design systems and saved pages go. |
+| `sessions/` | One short note per chat: did, decided, next. The short-term memory. |
+| `SETUP.md` | The first-run interview. Claude follows it once, then deletes it. |
+| `.claude/skills/setup` | The `/setup` command, same thing on demand. |
 
 ## What is left out, and where to get it
 
