@@ -4,16 +4,28 @@ The layer that turns the site into a lead engine. Everything here is optional, e
 
 ## What fires when someone visits and books
 
-1. **PostHog** records the visit, the pages, and the events that matter (`demo_form_start`, `lead:submitted`, `calendar_booked`). https://posthog.com
-2. **RB2B** matches the visitor to a person and company where it can, and posts them to a Slack channel. https://www.rb2b.com
-3. The **demo form** (`public/demo/`) creates a contact in your CRM. HubSpot's free tier is enough. https://www.hubspot.com
-4. **Calendly** shows on the thank-you state so they book straight away. https://calendly.com
-5. **Clay** enriches the new contact (role, company size, funding, LinkedIn) and writes it back to the CRM. https://www.clay.com
-6. **Slack** gets one message per lead with the enriched record, so the founder sees it within a minute. https://slack.com
+This is the chain as it runs on kartel.ai, with the tool names and none of the account details.
+
+**On page load**
+
+1. **PostHog** records the visit, the pages and the events that matter. https://posthog.com
+2. Behind the consent banner: **Google Tag Manager** (for GA4 and ad pixels), **RB2B** (visitor identification) and the **HubSpot tracking script**, which drops the cookie that later tells HubSpot where a contact came from.
+
+**When someone gives an email**
+
+3. **Form fill:** the HubSpot form creates the contact. The tracking cookie carries the source of the visit onto it. A HubSpot workflow picks the new contact up.
+4. **Calendly booking:** Calendly sends a webhook to a small receiver (a serverless function; Vercel's free tier is enough). The receiver submits a hidden HubSpot form that writes the booking details onto the contact. A second workflow fires on the meeting.
+5. Both workflows run the same steps: post the contact to a **Clay** enrichment receiver, which looks up the company by email domain and the person by name, then writes the enriched fields (role, company size, industry, LinkedIn) back onto the HubSpot contact and company. The workflow waits a few minutes for that to land, then posts the enriched card to a **Slack** channel. A form fill or booking also creates a Lead deal in the CRM.
+
+**RB2B runs on its own.** It identifies some US visitors and sends them wherever its own integrations page points: its Slack app, its HubSpot sync, or only its dashboard. It does not go through Clay. Routing RB2B hits into the same Slack channel is a setting in RB2B, not code.
+
+Links: https://www.rb2b.com · https://www.hubspot.com · https://calendly.com · https://www.clay.com · https://slack.com
+
+**What the kit ships and what it does not.** The kit has the consent gate, the demo page with the form and the thank-you calendar slot, and this doc. The two receivers (Calendly webhook, Clay enrichment) are about forty lines each of serverless code and are specific to your accounts; Claude can write them when you reach that step. The HubSpot workflows are built in HubSpot's own editor.
 
 ## Consent first
 
-Trackers go in the page as inert scripts:
+The kit gates every tracker, PostHog included. (kartel.ai loads PostHog and LinkedIn Insight before consent, a call its owner made; the kit takes the safer default.) Trackers go in the page as inert scripts:
 
 ```html
 <script type="text/plain" data-consent src="https://…/posthog.js"></script>
@@ -39,9 +51,9 @@ Turn on session replay and dead-click detection in PostHog; both are one switch.
 
 **Calendly.** Create a 30-minute event type. Paste the inline embed into the thank-you block in `public/demo/index.html`. Pass the email through so the booking matches the contact.
 
-**Clay.** Create a table with the CRM as its source (HubSpot → new contacts). Add enrichment columns: title, company size, industry, LinkedIn. Add a write-back column to the CRM and a Slack message column.
+**Clay.** Create a table that receives a contact (email, name, company) from a webhook. Add enrichment columns: title, company size, industry, LinkedIn. Add a write-back column to the HubSpot contact and company. The HubSpot workflow calls the webhook, waits a few minutes, then posts to Slack.
 
-**Slack.** One channel, say `#leads`. RB2B posts visits; Clay posts the enriched contact; Calendly posts bookings via its Slack app. Three messages tell the whole story of a lead without opening a dashboard.
+**Slack.** One channel, say `#leads`. The HubSpot workflow posts the enriched card after Clay has written back; RB2B posts visits through its own Slack app if you turn that on. Two kinds of message tell the whole story of a lead without opening a dashboard.
 
 ## What to look at weekly
 
