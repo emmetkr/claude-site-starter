@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Build a site with Claude Code</title>
+<meta name="description" content="Six steps to set up VS Code, Claude Code and GitHub, and build a plain-HTML site the way kartel.ai is built.">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/InterVariable.woff2">
+<link rel="stylesheet" href="/site.css">
+<!-- Analytics: paste your tag manager snippet here if you use one. -->
+</head>
+<body>
+
+<nav class="nav" aria-label="Site">
+  <div class="col">
+    <b>Claude Site Starter</b>
+    <div class="links">
+      <a href="#steps">The six steps</a>
+      <a href="#kit">What is in the kit</a>
+      <a href="https://github.com/emmetreilly/claude-site-starter">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="sec">
+    <div class="col">
+      <h1>Build a site with Claude Code.</h1>
+      <p class="lede">The setup behind kartel.ai, in six steps. Plain HTML, no framework, no agency. About 30 minutes.</p>
+      <div class="acts">
+        <a class="btn" href="https://github.com/emmetreilly/claude-site-starter">Use this template on GitHub</a>
+        <a class="btn ghost" href="#steps">Read the steps</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec alt" id="steps">
+    <div class="col">
+      <h2>The six steps.</h2>
+      <p class="muted">Do them in order. Each one is a free download and a sign-in.</p>
+      <ol class="steps">
+        <li class="step"><span class="n">1</span><div><h3>Install VS Code.</h3><p>The editor everything else runs inside. <a href="https://code.visualstudio.com/">code.visualstudio.com</a></p></div></li>
+        <li class="step"><span class="n">2</span><div><h3>Install the Claude Code extension.</h3><p>Open VS Code, find Claude Code in Extensions, and sign in with your Claude account. <a href="https://claude.com/claude-code">claude.com/claude-code</a></p></div></li>
+        <li class="step"><span class="n">3</span><div><h3>Connect GitHub.</h3><p>Install GitHub Desktop and sign in. Every change is saved there, and it is how the site goes live. <a href="https://desktop.github.com/">desktop.github.com</a></p></div></li>
+        <li class="step"><span class="n">4</span><div><h3>Add the skills.</h3><p>In Claude Code, add <a href="https://github.com/pbakaus/impeccable">impeccable</a>. It reviews the design and catches the things that make a page look generated. The typeface, Inter, is already in this kit.</p></div></li>
+        <li class="step"><span class="n">5</span><div><h3>Save three sites you like.</h3><p>In your browser, File → Save Page As, into the <code>reference/</code> folder. Ask Claude to read them before it designs anything. It learns the type sizes, the spacing and the rhythm.</p></div></li>
+        <li class="step"><span class="n">6</span><div><h3>Describe your site in plain English.</h3><p>Open this folder in VS Code, start Claude Code, and say what the site is for and who reads it. Open the page in your browser and ask for changes the way you would brief a designer.</p></div></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec" id="kit">
+    <div class="col">
+      <h2>What is in the kit.</h2>
+      <p class="muted">Click Use this template on GitHub and you get your own copy of all of it.</p>
+      <div class="kit">
+        <code>CLAUDE.md</code><p>Tells Claude how the repo works, and that the docs and the code change together.</p>
+        <code>DESIGN.md</code><p>The colour and type tokens, and the list of design tells to avoid.</p>
+        <code>docs/copy-rules.md</code><p>The ten rules the copy follows. No hedging, no fragments, no tails.</p>
+        <code>docs/design-rules.md</code><p>Layout, components and the phone rules. Everything is checked at 390px wide.</p>
+        <code>scripts/probe.mjs</code><p>Screenshots the site at phone and laptop width so Claude can see its own work.</p>
+        <code>scripts/check.mjs</code><p>Finds unbalanced tags and missing files before a page ships.</p>
+        <code>reference/</code><p>Where the saved sites go.</p>
+      </div>
+      <h3 style="margin-top:40px">Left out on purpose.</h3>
+      <p class="muted">The icon set kartel.ai uses, <a href="https://www.untitledui.com/icons">Untitled UI Icons PRO</a>, is paid and cannot be redistributed. The <a href="https://www.untitledui.com/">Untitled UI Figma kit</a> the design rules come from is also paid. Both are worth it.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="col">
+    <span>Made by <a href="https://kartel.ai/">Kartel</a>. MIT licence. Inter is under the SIL Open Font License.</span>
+    <a href="https://github.com/emmetreilly/claude-site-starter">github.com/emmetreilly/claude-site-starter</a>
+  </div>
+</footer>
+
+</body>
+</html>
