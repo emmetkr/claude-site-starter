@@ -14,6 +14,8 @@ A static site: hand-written HTML and CSS in `public/`, no build step. GitHub Pag
 | Colours, type, spacing | `DESIGN.md` |
 | Copy | `docs/copy-rules.md` |
 | Layout and components | `docs/design-rules.md` |
+| Anything at phone width | `docs/mobile-patterns.md` |
+| What changed and why | `docs/DEVLOG.md` |
 | Reference sites | `reference/README.md` |
 
 ## Docs and code change together
@@ -21,6 +23,8 @@ A static site: hand-written HTML and CSS in `public/`, no build step. GitHub Pag
 If you add, remove or rename a page, a section, a token or a script, update the matching doc in the same change. Do not leave it for later. Pure copy edits inside an existing section do not need a doc change.
 
 ## Before you say a change is done
+
+0. Add a line to `docs/DEVLOG.md`.
 
 1. Run `node scripts/check.mjs`.
 2. Run `node scripts/probe.mjs` and look at both screenshots. The page must work at 390px wide with no sideways scroll.

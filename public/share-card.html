@@ -1,0 +1,9 @@
+<!-- The share card: the image that shows when a link to the site is pasted into Slack, iMessage or LinkedIn.
+     Keep it to the site name on a plain ground. Any headline baked in here is unreadable at message size;
+     the words come from og:title. Render it with: node scripts/share-card.mjs  ->  public/share-card.png -->
+<!doctype html><meta charset="utf-8">
+<style>*{box-sizing:border-box;margin:0}html,body{width:1200px;height:630px;overflow:hidden}
+@font-face{font-family:'Inter';src:url(/assets/fonts/InterVariable.woff2) format('woff2');font-weight:100 900}
+body{background:#0A0A0A;color:#fff;font-family:'Inter',system-ui,sans-serif;display:grid;place-items:center}
+b{font-size:72px;font-weight:700;letter-spacing:-.03em}</style>
+<b>Your site name</b>

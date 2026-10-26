@@ -1,0 +1,117 @@
+/* Mobile interaction layer, shared by the static pages (/, /enterprise/, /enterprise/book/, /pricing/, /demo/).
+   Opt-in via data-mrail (snap card rail), data-mtabs + data-mtab (segmented tabs synced to swipe panes),
+   data-msheet / dialog > .dlg (bottom sheets), data-mmore (show N, expand), data-mtosheet (move a block into a sheet).
+   Everything here is inert above 1024px; desktop keeps its own layout. Driven by /cse/mobile.js. */
+
+.m-dots,.m-seg,.m-seg-slot,.m-handle,.m-more,.m-tosheet-host{display:none}
+
+@media (max-width:1199px){
+  :root{
+    --m-ink:var(--ink,var(--k-ink,#16141A));
+    --m-muted:var(--muted,var(--k-mut,#6B6660));
+    --m-bg:var(--sheet,var(--k-bg,var(--bg,#F5F2EC)));
+    --m-card:var(--white,var(--k-card,var(--card,#FFFFFF)));
+    --m-rule:var(--rule-fine,var(--k-hair,var(--border,rgba(22,20,26,.12))));
+    --m-accent:#F04A3C;
+    --m-mono:var(--font-mono,'DM Mono',ui-monospace,monospace);
+    --m-gutter:var(--gutter,20px);
+    --m-ease:cubic-bezier(.22,1,.36,1);
+    --m-seg-bg:rgba(22,20,26,.07);
+    --m-seg-pill:var(--m-ink);
+    --m-seg-ink:#F5F2EC;
+    --m-seg-muted:var(--m-muted);
+  }
+  html.dark{--m-seg-bg:rgba(245,242,236,.08);--m-seg-pill:#F5F2EC;--m-seg-ink:#16141A;--m-seg-muted:rgba(245,242,236,.62)}
+  .m-on-plate{--m-seg-bg:rgba(245,242,236,.09);--m-seg-pill:#F5F2EC;--m-seg-ink:#16141A;--m-seg-muted:rgba(245,242,236,.62);--m-rule:rgba(245,242,236,.18);--m-muted:rgba(245,242,236,.62)}
+
+  /* ---- rails: one card per thumb, the next one peeking ---- */
+  /* overflow is !important: a host page's own overflow:hidden (the CSE .v2-stack) can be declared after this file and would freeze the rail */
+  [data-mrail]{display:flex!important;flex-wrap:nowrap!important;flex-direction:row!important;justify-content:flex-start!important;gap:12px!important;overflow-x:auto!important;overflow-y:hidden!important;
+    scroll-snap-type:x mandatory;grid-template-columns:none!important;max-width:none!important;width:auto!important;
+    scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y}
+  [data-mrail]::-webkit-scrollbar{display:none}
+  [data-mrail]>*{flex:0 0 var(--m-card-w,84%)!important;max-width:none!important;scroll-snap-align:start;min-width:0;margin:0!important}
+  [data-mrail]:not([data-mrail~="logos"])>*{width:auto!important}
+  [data-mrail~="tight"]{--m-card-w:72%}
+  [data-mrail~="wide"]{--m-card-w:92%}
+  /* chips: filter pills keep their own width and scroll as a row (the News filters read as one giant "All", Emmet 2026-09-14) */
+  [data-mrail~="chips"]{gap:8px!important;scroll-snap-type:x proximity;padding-right:24px}
+  [data-mrail~="chips"]>*{flex:0 0 auto!important;width:auto!important;scroll-snap-align:start}
+  [data-mrail~="logos"]{gap:28px!important;align-items:center;scroll-snap-type:x proximity}
+  [data-mrail~="logos"]>*{flex:0 0 auto!important;scroll-snap-align:center}
+  /* one logo scale on every page: the CSE page's CSS-sized marks sit at 14–25px, so the <img> marks match them */
+  [data-mrail~="logos"] img{height:auto!important;max-height:24px!important;max-width:120px!important;width:auto!important;object-fit:contain}
+  /* bleed: the rail runs edge to edge while its cards still start on the gutter (parent padding must equal the gutter) */
+  [data-mrail~="bleed"]{scroll-padding-inline:var(--m-gutter);padding-inline:var(--m-gutter);margin-inline:calc(-1 * var(--m-gutter))}
+  .m-seg-slot{display:block;padding:22px var(--m-gutter) 0}
+  .m-seg-slot .m-seg{margin-bottom:0}
+  .m-dots{display:flex;align-items:center;gap:12px;margin-top:14px}
+  .m-dots .m-track{flex:1;height:2px;background:var(--m-rule);position:relative;overflow:hidden;border-radius:1px}
+  .m-dots .m-track i{position:absolute;left:0;top:0;height:100%;width:var(--w,25%);background:var(--m-accent);transform:translateX(0);transition:transform .5s var(--m-ease)}
+  .m-dots .m-n{font-family:var(--m-mono);font-size:12px;letter-spacing:.08em;color:var(--m-muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+  /* ---- segmented tabs + swipe panes ---- */
+  /* the pill is ink (cream on plate); inactive numbered segments collapse to their number so four always fit the track */
+  .m-seg{display:flex;gap:2px;padding:4px;background:var(--m-seg-bg);border-radius:999px;position:relative;margin:0 0 18px;overflow:hidden}
+  .m-seg button{flex:1 1 0;min-width:44px;min-height:44px;padding:0 14px;border:0;background:transparent;border-radius:999px;font:inherit;font-size:14px;font-weight:600;letter-spacing:-.01em;
+    color:var(--m-seg-muted);white-space:nowrap;position:relative;z-index:1;cursor:pointer;transition:color .3s ease,flex-grow .45s var(--m-ease);-webkit-tap-highlight-color:transparent;overflow:hidden;text-overflow:ellipsis}
+  /* the active segment IS the pill: one attribute drives colour, width and label, so no path can disagree */
+  .m-seg button[aria-selected="true"]{color:var(--m-seg-ink);background:var(--m-seg-pill);box-shadow:0 2px 10px -6px rgba(22,20,26,.45);transition:color .3s ease,background-color .3s ease,flex-grow .45s var(--m-ease)}
+  /* the step number is a faded version of the label's own ink, not a second colour */
+  .m-seg button i{font-style:normal;font-family:var(--m-mono);font-size:11px;letter-spacing:.06em;color:inherit;opacity:.5;vertical-align:1px;transition:opacity .3s ease}
+  .m-seg button[aria-selected="true"] i{opacity:.72}
+  .m-seg button .lbl{margin-left:7px}
+  .m-seg.numbered button{flex:0 1 auto}
+  .m-seg.numbered button:not([aria-selected="true"]) .lbl{display:none}
+  .m-seg.numbered button[aria-selected="true"]{flex:1 1 auto}
+  .m-seg button:focus-visible{outline:2px solid var(--m-accent);outline-offset:-2px}
+  [data-mtabs]{display:flex!important;flex-wrap:nowrap!important;flex-direction:row!important;gap:0!important;overflow-x:auto!important;overflow-y:hidden!important;align-items:flex-start;
+    scroll-snap-type:x mandatory;grid-template-columns:none!important;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;touch-action:pan-x pan-y;
+    transition:height .4s var(--m-ease)}
+  [data-mtabs]::-webkit-scrollbar{display:none}
+  /* even panes share the tallest height, so the scroller is never resized around a swipe (the home #record halves) */
+  [data-mtabs][data-mtabs-even]{align-items:stretch;transition:none}
+  [data-mtabs]>*{flex:0 0 100%!important;width:100%!important;max-width:none!important;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;
+    opacity:1!important;transform:none!important;margin:0!important}
+  [data-mtabs]>*+*{margin-left:0}
+  [data-mtabs] [data-reveal]{opacity:1;transform:none}
+
+  /* ---- sheets: the existing overlays, anchored to the bottom edge ---- */
+  /* dialog[data-mcenter] opts out and stays a centered modal: a 16:9 film pinned to the bottom edge reads as a stuck sheet, not a viewer */
+  dialog:not([data-mcenter]){margin:auto 0 0!important;max-width:none!important;width:100%!important;max-height:calc(100svh - 20px)}
+  dialog:not([data-mcenter])>.dlg{border-radius:16px 16px 0 0;max-height:calc(100svh - 20px);padding-top:6px!important}
+  .m-sheet-host{align-items:flex-end!important;justify-content:stretch!important;padding:0!important;overflow:hidden!important}
+  .m-sheet-host>[data-msheet]{width:100%!important;max-width:none!important;border-radius:16px 16px 0 0!important;max-height:calc(100svh - 20px);overflow:auto;margin:0!important}
+  .m-handle{display:block;width:40px;height:4px;border-radius:2px;background:currentColor;opacity:.28;margin:8px auto 14px;touch-action:none;flex:0 0 auto}
+  .m-sheet{will-change:transform;transition:transform .28s var(--m-ease),opacity .28s ease}
+  .m-sheet.m-dragging{transition:none}
+  .m-sheet[data-msheet-grab],.m-sheet .bar-top,.m-sheet [data-msheet-grab]{touch-action:none}
+  .m-sheet.m-rise{animation:m-rise .55s var(--m-ease) both}
+  @keyframes m-rise{from{transform:translateY(28px);opacity:.4}to{transform:none;opacity:1}}
+
+  /* ---- progressive disclosure ---- */
+  .m-hide{display:none!important}
+  .m-more{display:inline-flex;align-items:center;gap:8px;min-height:48px;padding:0 4px;margin-top:6px;border:0;background:transparent;font:inherit;font-size:16px;font-weight:600;
+    letter-spacing:-.01em;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent;border-bottom:1px solid currentColor}
+  .m-more svg{transition:transform .35s var(--m-ease)}
+  .m-more[aria-expanded="true"] svg{transform:rotate(180deg)}
+  .m-more:hover,.m-more:focus-visible{color:var(--m-accent);border-color:var(--m-accent);outline:0}
+  .m-tosheet-btn{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 20px;border:1px solid var(--m-rule);border-radius:6px;background:var(--m-card);
+    font:inherit;font-size:16px;font-weight:600;letter-spacing:-.01em;color:var(--m-ink);cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .m-tosheet-btn:hover,.m-tosheet-btn:focus-visible{border-color:var(--m-accent);color:var(--m-accent);outline:0}
+  .m-tosheet-host{position:fixed;inset:0;z-index:9000;background:rgba(11,11,13,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);display:none;align-items:flex-end}
+  .m-tosheet-host.open{display:flex}
+  .m-tosheet-host>[data-msheet]{width:100%;max-height:calc(100svh - 20px);overflow:auto;background:var(--m-bg);color:var(--m-ink);border-radius:16px 16px 0 0;padding:0 var(--m-gutter) max(24px,env(safe-area-inset-bottom))}
+  .m-tosheet-host .m-tosheet-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:2px 0 14px}
+  .m-tosheet-host .m-tosheet-head b{font-size:18px;letter-spacing:-.01em}
+  .m-tosheet-host .m-tosheet-x{font-family:var(--m-mono);font-size:12px;letter-spacing:.1em;min-height:44px;padding:0 6px;border:0;background:transparent;color:inherit;cursor:pointer}
+  .m-tosheet-host [data-mtosheet]{max-width:100%}
+
+  @media (prefers-reduced-motion:reduce){
+    .m-dots .m-track i,.m-seg button,.m-sheet,[data-mtabs],.m-more svg{transition:none}
+    .m-sheet.m-rise{animation:none}
+  }
+}
+
+/* rails fade at the trailing edge instead of hard-clipping; the logo rail keeps its edges (2026-09-11) */
+@media (max-width:1199px){[data-mrail]:not([data-mrail~="logos"]){-webkit-mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 36px),transparent);mask-image:linear-gradient(90deg,#000 0,#000 calc(100% - 36px),transparent)}}

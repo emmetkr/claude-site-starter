@@ -7,6 +7,7 @@
 <meta name="description" content="Six steps to set up VS Code, Claude Code and GitHub, and build a plain-HTML site the way kartel.ai is built.">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/InterVariable.woff2">
 <link rel="stylesheet" href="/site.css">
+<link rel="stylesheet" href="/mobile.css">
 <!-- Analytics: paste your tag manager snippet here if you use one. -->
 </head>
 <body>
@@ -44,7 +45,7 @@
         <li class="step"><span class="n">3</span><div><h3>Connect GitHub.</h3><p>Install GitHub Desktop and sign in. Every change is saved there, and it is how the site goes live. <a href="https://desktop.github.com/">desktop.github.com</a></p></div></li>
         <li class="step"><span class="n">4</span><div><h3>Add the skills.</h3><p>In Claude Code, add <a href="https://github.com/pbakaus/impeccable">impeccable</a>. It reviews the design and catches the things that make a page look generated. The typeface, Inter, is already in this kit.</p></div></li>
         <li class="step"><span class="n">5</span><div><h3>Give Claude references.</h3><p>Clone <a href="https://github.com/alexpate/awesome-design-systems">awesome-design-systems</a> into the <code>reference/</code> folder: a list of 140 public design systems, from Adobe to Shopify, with links to each one. Save three sites you like there too (File → Save Page As). Ask Claude to study them before it designs anything.</p></div></li>
-        <li class="step"><span class="n">6</span><div><h3>Describe your site in plain English.</h3><p>Open this folder in VS Code, start Claude Code, and say what the site is for and who reads it. Open the page in your browser and ask for changes the way you would brief a designer.</p></div></li>
+        <li class="step"><span class="n">6</span><div><h3>Describe your site in plain English.</h3><p>Open this folder in VS Code, start Claude Code, and say what the site is for and who reads it. Run <code>node scripts/serve.mjs</code>, open localhost:4173, and ask for changes the way you would brief a designer. For a product demo video, add <a href="https://github.com/heygen-com/hyperframes">HyperFrames</a>: it turns HTML into video, so Claude can make the demo too.</p></div></li>
       </ol>
     </div>
   </section>
@@ -60,7 +61,12 @@
         <code>docs/design-rules.md</code><p>Layout, components and the phone rules. Everything is checked at 390px wide.</p>
         <code>scripts/probe.mjs</code><p>Screenshots the site at phone and laptop width so Claude can see its own work.</p>
         <code>scripts/check.mjs</code><p>Finds unbalanced tags and missing files before a page ships.</p>
-        <code>reference/</code><p>Where the saved sites go.</p>
+        <code>mobile.css + mobile.js</code><p>The phone patterns: horizontal rails, segmented swipe tabs and bottom sheets, switched on by one attribute.</p>
+        <code>docs/mobile-patterns.md</code><p>The 390px measurements: rhythm, type, buttons, every section type.</p>
+        <code>scripts/serve.mjs</code><p>Opens the site at localhost:4173 while you work.</p>
+        <code>scripts/share-card.mjs</code><p>Renders the image that shows when your link is pasted into Slack or LinkedIn.</p>
+        <code>docs/DEVLOG.md</code><p>One dated line per change. Claude reads it at the start of each session, so it remembers.</p>
+        <code>reference/</code><p>Where the design systems and saved sites go.</p>
       </div>
       <h3 style="margin-top:40px">Left out on purpose.</h3>
       <p class="muted">The icon set kartel.ai uses, <a href="https://www.untitledui.com/icons">Untitled UI Icons PRO</a>, is paid and cannot be redistributed. The <a href="https://www.untitledui.com/">Untitled UI Figma kit</a> the design rules come from is also paid. Both are worth it.</p>
@@ -74,6 +80,7 @@
     <a href="https://github.com/emmetreilly/claude-site-starter">github.com/emmetreilly/claude-site-starter</a>
   </div>
 </footer>
+<script src="/mobile.js" defer></script>
 
 </body>
 </html>
