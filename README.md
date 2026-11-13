@@ -1,7 +1,5 @@
 # Build a site with Claude Code
 
-The setup I use for kartel.ai, as a starter kit. Plain HTML and CSS, no framework, no build step. Claude Code writes the pages, keeps the docs current and checks its own work on a phone-width screen.
-
 **Walkthrough:** the same six steps, with screenshots, at the kit's own page: `public/index.html` (served from GitHub Pages once you enable it, see step 6).
 
 ## The six steps
